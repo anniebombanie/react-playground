@@ -22,7 +22,6 @@ const products = [
 export default class Product extends Component {
   state = {
     cart: [],
-    total: 0,
   };
 
   currencyOptions = {
@@ -30,46 +29,54 @@ export default class Product extends Component {
     maximumFractionDigits: 2,
   };
 
+  getTotal = () => {
+    const total = this.state.cart.reduce(
+      (totalCost, item) => totalCost + item.price,
+      0
+    );
+    return total.toLocaleString(undefined, this.currencyOptions);
+  };
+
   add = (product) => {
-    this.setState(state => ({
-      cart: [...state.cart, product.name],
-      total: state.total + product.price
+    this.setState((state) => ({
+      cart: [...state.cart, product],
+      total: state.total + product.price,
     }));
   };
 
   remove = (product) => {
-    this.setState(state => {
+    this.setState((state) => {
       const cart = [...state.cart];
-	  cart.splice(cart.indexOf(product.name))
+	  const productIndex = cart.findIndex(p => p.name === product.name);
+	  if ( productIndex < 0) {
+		  return;
+	  }
 
-	  return({
-		  cart,
-		  total: state.total - product.price
-	  })
+      cart.splice(productIndex, 1);
+
+      return {
+        cart
+      };
     });
-  };
-
-  getTotal = () => {
-    return this.state.total.toLocaleString(undefined, this.currencyOptions);
   };
 
   render() {
     const { cart } = this.state;
-	console.log({cart});
+    console.log({ cart });
 
     return (
       <div className="wrapper">
         <div>Shopping Cart: {cart.length} total items.</div>
         <div>Total: {this.getTotal()}</div>
-		{products.map(product => (
-			<div className="product">
-			<span role="img" aria-label={product.name}>
-				{product.emoji}
-			</span>
-			<button onClick={() => this.add(product)}>Add</button>{" "}
-			<button onClick={() => this.remove(product)}>Remove</button>
-			</div>
-		))}
+        {products.map((product) => (
+          <div className="product">
+            <span role="img" aria-label={product.name}>
+              {product.emoji}
+            </span>
+            <button onClick={() => this.add(product)}>Add</button>{" "}
+            <button onClick={() => this.remove(product)}>Remove</button>
+          </div>
+        ))}
       </div>
     );
   }
