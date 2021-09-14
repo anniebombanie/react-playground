@@ -11,6 +11,34 @@
     {
       "item": "rice",
       "id": 3
+    },
+    {
+      "item": "kale",
+      "id": 4
+    },
+    {
+      "item": "kale",
+      "id": 5
+    },
+    {
+      "item": "fish",
+      "id": 6
+    },
+    {
+      "item": "almond butter",
+      "id": 7
+    },
+    {
+      "item": "strawberries",
+      "id": 8
+    },
+    {
+      "item": "cucumber",
+      "id": 9
+    },
+    {
+      "item": "chips",
+      "id": 10
     }
   ]
 }
