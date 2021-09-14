@@ -1,10 +1,12 @@
 .product span {
     font-size: 100px;
+	display: block;
 }
 
 .wrapper {
     padding: 20px;
     font-size: 20px;
+	display: block;
 }
 
 .wrapper button {
